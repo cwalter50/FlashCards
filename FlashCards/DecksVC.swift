@@ -8,12 +8,14 @@
 
 import UIKit
 
-class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
 
     @IBOutlet weak var deckCollectionView: UICollectionView!
     
     var decks: [Deck] = [Deck]()
+    
+    var selectedDeck: Deck?
     
     override func viewDidLoad()
     {
@@ -54,16 +56,46 @@ class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
         
         let theDeck = decks[indexPath.row]
         cell.deck = theDeck // titleLabel gets set in DeckCollectionViewCell
-        cell.backgroundColor = UIColor.darkGray
-        cell.titleLabel.textColor = UIColor.white
+        cell.backgroundColor = UIColor.white
+        cell.titleLabel.textColor = UIColor.darkGray
+        cell.layer.cornerRadius = 10.0
+        cell.layer.borderColor = UIColor.darkGray.cgColor
+        cell.layer.borderWidth = 3.0
+        
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedDeck = decks[indexPath.row]
+        print("didSelectItem called")
+        performSegue(withIdentifier: "ToCardSegue", sender: self)
+        
+    }
+    
+    // MARK: layout for collectionview cells
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = UIScreen.main.bounds.width / 3 - 15.0
+        return CGSize(width: width, height: width)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 5.0
+    }
+    
+    
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ToCardSegue"
         {
-            
+            print("prepare for segue called")
+            let destVC = segue.destination as! CardsVC
+
+            destVC.deck = selectedDeck
         }
     }
     
