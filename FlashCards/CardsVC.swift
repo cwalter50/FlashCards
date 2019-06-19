@@ -22,6 +22,15 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         loadCards()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if let theDeck = deck
+        {
+            self.title = theDeck.name
+        }
+        cardsTableView.reloadData()
+        
+    }
+    
     
     func loadCards()
     {
@@ -132,6 +141,12 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 
             })
             let resetStatsAction = UIAlertAction(title: "Reset Stats", style: .destructive, handler: {action in
+                // get possibly new textfield values...
+                let side1 = alert.textFields?[0].text ?? "Error"
+                let side2 = alert.textFields?[1].text ?? "Error2"
+                theCard.side1 = side1
+                theCard.side2 = side2
+                
                 theCard.correctCount = 0
                 theCard.incorrectCount = 0
                 

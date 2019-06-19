@@ -34,18 +34,51 @@ class GameVC: UIViewController {
         {
             if let theCard = currentCard, let theDeck = deck
             {
-                mainLabel.text = theCard.side1
+                // update statLabel
                 statLabel.text = theDeck.getBasicStatString()
+                
+                // get a random number from 1 - 2 to decide if we display side1 or side2. The text will be set in the animation
+                let random = Int.random(in: 1...2)
+                var displayString = ""
+                if random == 1
+                {
+                    displayString = theCard.side1
+                }
+                else
+                {
+                    displayString = theCard.side2
+                }
+                
+                // animate the newCard coming in
+                let transitionOptions: UIView.AnimationOptions = [.transitionCurlUp, .showHideTransitionViews]
+                UIView.transition(with: mainLabel, duration: 1.0, options: transitionOptions, animations: {
+                    self.mainLabel.text = ""
+                }, completion: { (action) in
+                    self.mainLabel.text = displayString
+                    })
             }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setUpViews()
         newGame()
     }
     
+    func setUpViews()
+    {
+        // set the title
+        if let theDeck = deck
+        {
+            self.title = theDeck.name
+        }
+        // make the label look like a card...
+        mainLabel.layer.cornerRadius = 15
+        mainLabel.layer.borderWidth = 5.0
+        mainLabel.layer.borderColor = UIColor.darkGray.cgColor
+        
+    }
     func newGame()
     {
         if let theDeck = deck
@@ -73,6 +106,12 @@ class GameVC: UIViewController {
             {
                 mainLabel.text = theCard.side1
             }
+            
+            // flip animation
+            let transitionOptions: UIView.AnimationOptions = [.transitionFlipFromRight, .showHideTransitionViews]
+            UIView.transition(with: mainLabel, duration: 1.0, options: transitionOptions, animations: {
+                // found this snippet online.  Could do a lot more with the transition in this code block.
+            })
         }
         
     }

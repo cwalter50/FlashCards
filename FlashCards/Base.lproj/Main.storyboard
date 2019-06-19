@@ -104,20 +104,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="119.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="qyq-jy-xDy">
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="qyq-jy-xDy">
                                                     <rect key="frame" x="12" y="5" width="390" height="109.5"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="e1G-FA-A0O">
-                                                            <rect key="frame" x="0.0" y="0.0" width="192.5" height="80"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="285" height="80"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="QTq-RV-4hl">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="192.5" height="35"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="285" height="35"/>
                                                                     <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="30"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="T5r-KS-eXS">
-                                                                    <rect key="frame" x="0.0" y="45" width="192.5" height="35"/>
+                                                                    <rect key="frame" x="0.0" y="45" width="285" height="35"/>
                                                                     <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="30"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -125,9 +125,12 @@
                                                             </subviews>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="UHb-Or-uEr">
-                                                            <rect key="frame" x="197.5" y="0.0" width="192.5" height="35"/>
+                                                            <rect key="frame" x="290" y="0.0" width="100" height="35"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="100" id="8kT-rB-d2I"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="30"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -194,20 +197,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10/10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="qc1-D5-d5f">
-                                <rect key="frame" x="227" y="100" width="175" height="100"/>
+                                <rect key="frame" x="204" y="108" width="175" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="KVu-HN-b2I"/>
-                                    <constraint firstAttribute="width" constant="175" id="rcO-6T-u5i"/>
+                                    <constraint firstAttribute="width" constant="175" id="V0a-0G-qwx"/>
+                                    <constraint firstAttribute="height" constant="100" id="sp5-gP-CSZ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="50"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yBq-li-uty">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yBq-li-uty">
                                 <rect key="frame" x="20" y="88" width="374" height="754"/>
                                 <subviews>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="sFY-No-9p7">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="634"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="624"/>
                                         <gestureRecognizers/>
                                         <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="40"/>
                                         <nil key="textColor"/>
@@ -251,10 +254,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="qc1-D5-d5f" firstAttribute="top" secondItem="Sgk-69-pid" secondAttribute="top" constant="12" id="51b-Ah-gPM"/>
-                            <constraint firstItem="Sgk-69-pid" firstAttribute="trailing" secondItem="qc1-D5-d5f" secondAttribute="trailing" constant="12" id="5Js-Jr-8mR"/>
                             <constraint firstItem="yBq-li-uty" firstAttribute="leading" secondItem="Sgk-69-pid" secondAttribute="leading" constant="20" id="Aay-Cv-0Gg"/>
+                            <constraint firstItem="qc1-D5-d5f" firstAttribute="top" secondItem="Sgk-69-pid" secondAttribute="top" constant="20" id="Nn3-uc-Qpk"/>
                             <constraint firstItem="yBq-li-uty" firstAttribute="top" secondItem="Sgk-69-pid" secondAttribute="top" id="VUa-En-16h"/>
+                            <constraint firstItem="Sgk-69-pid" firstAttribute="trailing" secondItem="qc1-D5-d5f" secondAttribute="trailing" constant="35" id="VbJ-gn-2uQ"/>
                             <constraint firstItem="Sgk-69-pid" firstAttribute="bottom" secondItem="yBq-li-uty" secondAttribute="bottom" constant="20" id="XFs-Zq-Ayn"/>
                             <constraint firstItem="Sgk-69-pid" firstAttribute="trailing" secondItem="yBq-li-uty" secondAttribute="trailing" constant="20" id="tnr-FX-KK4"/>
                         </constraints>
