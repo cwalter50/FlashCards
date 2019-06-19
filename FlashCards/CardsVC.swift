@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CardsVC.swift
 //  FlashCards
 //
 //  Created by Christopher Walter on 6/18/19.
@@ -8,13 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CardsVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
     }
+    
 
+   
 
 }
-
