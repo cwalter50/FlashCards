@@ -11,15 +11,17 @@ import UIKit
 class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var cardsTableView: UITableView!
+    @IBOutlet weak var deleteButton: UIButton!
     
     var deck: Deck?
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         loadCards()
+        
+        cardsTableView.tableFooterView = UIView() // this will remove the extra empty cells at bottom of tableview
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,18 +30,47 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.title = theDeck.name
         }
         cardsTableView.reloadData()
+        deleteButton.isHidden = true
+        deleteButton.layer.cornerRadius = 10.0
+    }
+    
+    // MARK: Saving, Loading, Removing, Updating, CoreData Stuff
+    func loadCards()
+    {
+        // ToDo Load Cards From CoreData... They are currently passed in from deckVC along with the Deck.
         
     }
     
-    
-    func loadCards()
+    func saveNewCard(s1:String, s2:String)
     {
-//        if let theDeck = deck
-//        {
-//
-//            cardsTableView.reloadData()
-//        }
+        // ToDo Save Card to Core Data
+        let newCard = Card(s1: s1, s2: s2)
+        self.deck?.cards.append(newCard) // update the deck's cards
         
+        self.cardsTableView.reloadData()
+    }
+    
+    func deleteDeck()
+    {
+        // ToDo  delete entire Deck from Core Data including cards
+    }
+    
+    func deleteCardAt(index: Int)
+    {
+        // ToDo delete card from Core Data
+        if let theDeck = deck
+        {
+            theDeck.cards.remove(at: index)
+        }
+    }
+    
+    func updateCard(card: Card, s1:String, s2:String, correct: Int, incorrect: Int)
+    {
+        card.side1 = s1
+        card.side2 = s2
+        card.correctCount = correct
+        card.incorrectCount = incorrect
+        // ToDo update card in CoreData
     }
     
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem)
@@ -58,9 +89,8 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let addAction = UIAlertAction(title: "Add Card", style: .default, handler: {action in
             let side1 = alert.textFields?[0].text ?? "Error"
             let side2 = alert.textFields?[1].text ?? "Error2"
-            let newCard = Card(s1: side1, s2: side2)
-            self.deck?.cards.append(newCard) // update the deck's cards
-            self.cardsTableView.reloadData()
+            
+            self.saveNewCard(s1: side1, s2: side2)
             
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -83,12 +113,28 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    @IBAction func playTapped(_ sender: UIBarButtonItem)
+
+    @IBAction func editButtonTapped(_ sender: UIBarButtonItem)
     {
-        
+        cardsTableView.isEditing = !cardsTableView.isEditing
+        if cardsTableView.isEditing
+        {
+            deleteButton.isHidden = false
+        }
+        else
+        {
+            deleteButton.isHidden = true
+        }
     }
     
-    // MARK: TableView properties
+    @IBAction func deleteDeckAndCardsTapped(_ sender: UIButton) {
+        // ToDo Delete entire Deck from CoreData
+        // delete Deck and pop view controller
+        deleteDeck()
+        navigationController?.popViewController(animated: true)
+    }
+    
+    // MARK: TableView Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let theDeck = deck
         {
@@ -97,6 +143,7 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         else
         {
             return 0
+
         }
     }
     
@@ -110,6 +157,18 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             cell.card = theCard // propties and labels will be set in CardTableViewCell
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete
+        {
+            deleteCardAt(index: indexPath.row) // helper method to delete card
+
+            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -131,11 +190,10 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 textfield.autocapitalizationType = .sentences
                 textfield.text = theCard.side2
             })
-            let addAction = UIAlertAction(title: "Edit Card", style: .default, handler: {action in
+            let addAction = UIAlertAction(title: "Save Edits", style: .default, handler: {action in
                 let side1 = alert.textFields?[0].text ?? "Error"
                 let side2 = alert.textFields?[1].text ?? "Error2"
-                theCard.side1 = side1
-                theCard.side2 = side2
+                self.updateCard(card: theCard, s1: side1, s2: side2, correct: theCard.correctCount, incorrect: theCard.incorrectCount)
                 
                 self.cardsTableView.reloadData()
                 
@@ -144,23 +202,18 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 // get possibly new textfield values...
                 let side1 = alert.textFields?[0].text ?? "Error"
                 let side2 = alert.textFields?[1].text ?? "Error2"
-                theCard.side1 = side1
-                theCard.side2 = side2
                 
-                theCard.correctCount = 0
-                theCard.incorrectCount = 0
-                
+                self.updateCard(card: theCard, s1: side1, s2: side2, correct: 0, incorrect: 0)
                 self.cardsTableView.reloadData()
             })
+            
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             
             alert.addAction(addAction)
             alert.addAction(resetStatsAction)
             alert.addAction(cancelAction)
             
-
             present(alert, animated: true, completion: nil)
-            
         }
         
     }

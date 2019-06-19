@@ -18,9 +18,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap + to add a new deck" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="xrS-kg-58I">
+                                <rect key="frame" x="12" y="430.5" width="390" height="35"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="30"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vIy-Zx-fV9">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CjR-Sl-wSZ">
                                     <size key="itemSize" width="135" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -62,8 +68,11 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="xrS-kg-58I" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Dew-ZC-JgA"/>
                             <constraint firstItem="vIy-Zx-fV9" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Im5-el-Ckd"/>
                             <constraint firstItem="vIy-Zx-fV9" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="NwQ-yi-Mp4"/>
+                            <constraint firstItem="xrS-kg-58I" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="12" id="QvD-5S-58N"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xrS-kg-58I" secondAttribute="trailing" constant="12" id="SDQ-vA-CDT"/>
                             <constraint firstItem="vIy-Zx-fV9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bIo-XO-B6w"/>
                             <constraint firstItem="vIy-Zx-fV9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="rad-mY-qJJ"/>
                         </constraints>
@@ -93,9 +102,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap + to add a new card" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="syH-qv-m2Z">
+                                <rect key="frame" x="12" y="430.5" width="390" height="35"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="30"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MTJ-sR-Tsi">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="myCell" rowHeight="120" id="ddZ-k4-NAX" customClass="CardTableViewCell" customModule="FlashCards" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="120"/>
@@ -155,13 +171,34 @@
                                     <outlet property="delegate" destination="Z4a-JB-IOc" id="h9I-V0-XKf"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CeD-g5-aJz">
+                                <rect key="frame" x="12" y="722" width="390" height="120"/>
+                                <color key="backgroundColor" red="1" green="0.4941176471" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="tCM-Dq-LlJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="30"/>
+                                <state key="normal" title="Delete Deck and All Cards">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteDeckAndCardsTapped:" destination="Z4a-JB-IOc" eventType="touchUpInside" id="uwq-aL-EwZ"/>
+                                    <action selector="wrongButtonTapped:" destination="pXI-0K-RaN" eventType="touchUpInside" id="ZAj-0c-1xE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="MTJ-sR-Tsi" secondAttribute="bottom" id="LHO-sa-YeU"/>
-                            <constraint firstItem="MTJ-sR-Tsi" firstAttribute="top" secondItem="jL7-ae-nqU" secondAttribute="top" id="WL4-wZ-QwN"/>
-                            <constraint firstItem="MTJ-sR-Tsi" firstAttribute="trailing" secondItem="jL7-ae-nqU" secondAttribute="trailing" id="tPW-C7-wuX"/>
-                            <constraint firstItem="MTJ-sR-Tsi" firstAttribute="leading" secondItem="jL7-ae-nqU" secondAttribute="leading" id="w2T-ru-K9P"/>
+                            <constraint firstItem="MTJ-sR-Tsi" firstAttribute="trailing" secondItem="jL7-ae-nqU" secondAttribute="trailing" id="BXx-aI-18x"/>
+                            <constraint firstItem="jL7-ae-nqU" firstAttribute="bottom" secondItem="CeD-g5-aJz" secondAttribute="bottom" constant="20" id="EAM-Kl-KYF"/>
+                            <constraint firstItem="jL7-ae-nqU" firstAttribute="trailing" secondItem="CeD-g5-aJz" secondAttribute="trailing" constant="12" id="LR3-CX-3I9"/>
+                            <constraint firstItem="syH-qv-m2Z" firstAttribute="leading" secondItem="jL7-ae-nqU" secondAttribute="leading" constant="12" id="LvD-3L-5S6"/>
+                            <constraint firstItem="jL7-ae-nqU" firstAttribute="trailing" secondItem="syH-qv-m2Z" secondAttribute="trailing" constant="12" id="Wyf-Sl-1nw"/>
+                            <constraint firstItem="MTJ-sR-Tsi" firstAttribute="top" secondItem="jL7-ae-nqU" secondAttribute="top" id="aW7-jr-5dR"/>
+                            <constraint firstItem="syH-qv-m2Z" firstAttribute="centerY" secondItem="DoM-dR-Dt3" secondAttribute="centerY" id="cho-BX-vzs"/>
+                            <constraint firstItem="MTJ-sR-Tsi" firstAttribute="leading" secondItem="jL7-ae-nqU" secondAttribute="leading" id="foV-aO-8Lj"/>
+                            <constraint firstItem="CeD-g5-aJz" firstAttribute="leading" secondItem="jL7-ae-nqU" secondAttribute="leading" constant="12" id="g7l-4Q-M2F"/>
+                            <constraint firstAttribute="bottom" secondItem="MTJ-sR-Tsi" secondAttribute="bottom" id="mBI-Y6-GMN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jL7-ae-nqU"/>
                     </view>
@@ -169,7 +206,6 @@
                         <rightBarButtonItems>
                             <barButtonItem title="Play" id="OzL-aN-f63">
                                 <connections>
-                                    <action selector="playTapped:" destination="Z4a-JB-IOc" id="DQb-uQ-PsY"/>
                                     <segue destination="pXI-0K-RaN" kind="show" identifier="ToGameSegue" id="Nxh-Ut-qST"/>
                                 </connections>
                             </barButtonItem>
@@ -178,10 +214,16 @@
                                     <action selector="addButtonTapped:" destination="Z4a-JB-IOc" id="AwO-Wa-OKE"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Edit" id="ydx-vY-5eZ">
+                                <connections>
+                                    <action selector="editButtonTapped:" destination="Z4a-JB-IOc" id="z6J-Yt-vvO"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="cardsTableView" destination="MTJ-sR-Tsi" id="1AE-xR-8Mc"/>
+                        <outlet property="deleteButton" destination="CeD-g5-aJz" id="14A-K2-Uyj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v6c-eg-tmz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -203,7 +245,7 @@
                                     <constraint firstAttribute="height" constant="100" id="sp5-gP-CSZ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="50"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yBq-li-uty">

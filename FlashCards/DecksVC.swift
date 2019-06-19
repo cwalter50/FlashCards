@@ -22,10 +22,26 @@ class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
         super.viewDidLoad()
         
         createSampleDecks()
-        
-        
-       self.title = "Flash Cards"
+        self.title = "Flash Cards"
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        loadDecks()
+    }
+    
+    func loadDecks()
+    {
+        // ToDo load decks from CoreData
+    }
+    
+    func saveDeck(n: String)
+    {
+        
+        let newDeck = Deck(n: n)
+        self.decks.append(newDeck)
+        // ToDo save deck to CoreData
     }
     
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem)
@@ -38,8 +54,8 @@ class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
         })
         let addAction = UIAlertAction(title: "Add Deck", style: .default, handler: {action in
             let name = alert.textFields?[0].text ?? "Error"
-            let newDeck = Deck(n: name)
-            self.decks.append(newDeck)
+            self.saveDeck(n: name) // helper function to save to CareData
+            
             self.deckCollectionView.reloadData()
             
         })
@@ -90,8 +106,6 @@ class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
             cellWidth = width / 2 - 15.0
         }
         return CGSize(width: cellWidth, height: cellWidth)
-        
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -102,6 +116,7 @@ class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
         return 5.0
     }
     
+    // these are sample Decks, so That I can interact with the program while in development.
     func createSampleDecks()
     {
         let cardsA = [Card(s1: "Hulk", s2: "Bruce Banner"),Card(s1: "Iron Man", s2: "Tony Stark"), Card(s1: "Captain America", s2: "Steve Rogers"), Card(s1: "Spiderman", s2: "Peter Parker"), Card(s1: "Black Widow", s2: "Natasha Romamova"), Card(s1: "Hawkeye", s2: "Clint Barton"), Card(s1: "Thor", s2: "Thor Odinson"), Card(s1: "Black Panther", s2: "King T'Challa")]
@@ -109,9 +124,9 @@ class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
         
         let cardsB = [Card(s1: "QuarterBack", s2: "Carson Wentz"), Card(s1: "Wide Reciever", s2: "Dasean Jackson"), Card(s1: "TightEnd", s2: "Zach Ertz"), Card(s1: "Defensive Tackle", s2: "Fletcher Cox")]
         let deckB = Deck(n: "Eagles", c: cardsB)
-        
-        let cardsC = [Card(s1: "Bob Brown", s2: "Illinois"), Card(s1: "Stacy Sniegowski", s2: "Illinois"), Card(s1: "Steve Peterson", s2: "PA"), Card(s1: "Eric Duffett", s2: "Illinois"), ]
-        let deckC = Deck(n: "Teacher State", c: cardsC)
+
+        let cardsC = [Card(s1: "Bob Brown", s2: "Illinois"), Card(s1: "Stacy Sniegowski", s2: "Illinois"), Card(s1: "Steve Peterson", s2: "PA")]
+        let deckC = Deck(n: "Teacher's State or Location", c: cardsC)
         
         decks.append(deckA)
         decks.append(deckB)
@@ -121,7 +136,6 @@ class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ToCardSegue"
         {
-            print("prepare for segue called")
             let destVC = segue.destination as! CardsVC
 
             destVC.deck = selectedDeck
