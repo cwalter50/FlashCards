@@ -35,7 +35,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="135" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="bUU-nN-FLe">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="bUU-nN-FLe">
                                                     <rect key="frame" x="0.0" y="0.0" width="135" height="128"/>
                                                     <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="30"/>
                                                     <nil key="textColor"/>
@@ -167,7 +167,7 @@
                             <barButtonItem title="Play" id="OzL-aN-f63">
                                 <connections>
                                     <action selector="playTapped:" destination="Z4a-JB-IOc" id="DQb-uQ-PsY"/>
-                                    <segue destination="pXI-0K-RaN" kind="show" identifier="ToGameVC" id="Nxh-Ut-qST"/>
+                                    <segue destination="pXI-0K-RaN" kind="show" identifier="ToGameSegue" id="Nxh-Ut-qST"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="add" id="TIX-1W-wud">
@@ -188,18 +188,94 @@
         <!--Deck-->
         <scene sceneID="qAa-Yq-VVY">
             <objects>
-                <viewController id="pXI-0K-RaN" sceneMemberID="viewController">
+                <viewController id="pXI-0K-RaN" customClass="GameVC" customModule="FlashCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Toy-Nk-hgd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10/10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="qc1-D5-d5f">
+                                <rect key="frame" x="227" y="100" width="175" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="KVu-HN-b2I"/>
+                                    <constraint firstAttribute="width" constant="175" id="rcO-6T-u5i"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yBq-li-uty">
+                                <rect key="frame" x="20" y="88" width="374" height="754"/>
+                                <subviews>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="sFY-No-9p7">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="634"/>
+                                        <gestureRecognizers/>
+                                        <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="40"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="iO1-ce-wX6" appends="YES" id="O3f-Hl-2HE"/>
+                                        </connections>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="wqW-qG-8qa">
+                                        <rect key="frame" x="0.0" y="634" width="374" height="120"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PIT-1O-AGh">
+                                                <rect key="frame" x="0.0" y="0.0" width="177" height="120"/>
+                                                <color key="backgroundColor" red="1" green="0.4941176471" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="30"/>
+                                                <state key="normal" title="Wrong">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="wrongButtonTapped:" destination="pXI-0K-RaN" eventType="touchUpInside" id="acx-e3-z8j"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="93z-MP-F3L">
+                                                <rect key="frame" x="197" y="0.0" width="177" height="120"/>
+                                                <color key="backgroundColor" red="0.40784313729999999" green="0.73333333329999995" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="30"/>
+                                                <state key="normal" title="Correct">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="correctButtonTapped:" destination="pXI-0K-RaN" eventType="touchUpInside" id="CBn-cy-6bV"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="120" id="iXG-rm-X8F"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qc1-D5-d5f" firstAttribute="top" secondItem="Sgk-69-pid" secondAttribute="top" constant="12" id="51b-Ah-gPM"/>
+                            <constraint firstItem="Sgk-69-pid" firstAttribute="trailing" secondItem="qc1-D5-d5f" secondAttribute="trailing" constant="12" id="5Js-Jr-8mR"/>
+                            <constraint firstItem="yBq-li-uty" firstAttribute="leading" secondItem="Sgk-69-pid" secondAttribute="leading" constant="20" id="Aay-Cv-0Gg"/>
+                            <constraint firstItem="yBq-li-uty" firstAttribute="top" secondItem="Sgk-69-pid" secondAttribute="top" id="VUa-En-16h"/>
+                            <constraint firstItem="Sgk-69-pid" firstAttribute="bottom" secondItem="yBq-li-uty" secondAttribute="bottom" constant="20" id="XFs-Zq-Ayn"/>
+                            <constraint firstItem="Sgk-69-pid" firstAttribute="trailing" secondItem="yBq-li-uty" secondAttribute="trailing" constant="20" id="tnr-FX-KK4"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Sgk-69-pid"/>
                     </view>
                     <navigationItem key="navigationItem" title="Deck" id="ZFA-rv-Zyf"/>
+                    <connections>
+                        <outlet property="correctButton" destination="93z-MP-F3L" id="9E7-Ni-Nfn"/>
+                        <outlet property="mainLabel" destination="sFY-No-9p7" id="dbq-lU-XKH"/>
+                        <outlet property="statLabel" destination="qc1-D5-d5f" id="bCh-Yf-hYG"/>
+                        <outlet property="wrongButton" destination="PIT-1O-AGh" id="cnO-Ix-R4L"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Ze-Wj-2N3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="iO1-ce-wX6">
+                    <connections>
+                        <action selector="mainLabelTapped:" destination="pXI-0K-RaN" id="ecx-41-xw4"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2402" y="17"/>
+            <point key="canvasLocation" x="2401.449275362319" y="16.741071428571427"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Peu-Uc-BQV">

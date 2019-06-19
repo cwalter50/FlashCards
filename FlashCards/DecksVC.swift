@@ -20,6 +20,8 @@ class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        createSampleDecks()
 
     }
     
@@ -66,8 +68,7 @@ class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedDeck = decks[indexPath.row]
-        print("didSelectItem called")
+        selectedDeck = decks[indexPath.row] 
         performSegue(withIdentifier: "ToCardSegue", sender: self)
         
     }
@@ -84,6 +85,19 @@ class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 5.0
+    }
+    
+    func createSampleDecks()
+    {
+        let cardsA = [Card(s1: "Hulk", s2: "Bruce Banner"),Card(s1: "Iron Man", s2: "Tony Stark"), Card(s1: "Captain America", s2: "Steve Rogers"), Card(s1: "Spiderman", s2: "Peter Parker"), Card(s1: "Black Widow", s2: "Natasha Romamova"), Card(s1: "Hawkeye", s2: "Clint Barton")]
+        
+        let deckA = Deck(n: "Super Heros", c: cardsA)
+        
+        let cardsB = [Card(s1: "QuarterBack", s2: "Carson Wentz"), Card(s1: "Wide Reciever", s2: "Dasean Jackson"), Card(s1: "TightEnd", s2: "Zach Ertz"), Card(s1: "Defensive Tackle", s2: "Fletcher Cox")]
+        let deckB = Deck(n: "Eagles", c: cardsB)
+        
+        decks.append(deckA)
+        decks.append(deckB)
     }
     
     

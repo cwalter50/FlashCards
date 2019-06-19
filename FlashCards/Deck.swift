@@ -28,4 +28,35 @@ class Deck
         name = n
         cards = c
     }
+    
+    func getStatString() -> String
+    {
+        var correctCount = 0
+        var incorrectCount = 0
+        for card in cards
+        {
+            correctCount += card.correctCount
+            incorrectCount += card.incorrectCount
+        }
+        var result = "\(correctCount)/\(correctCount + incorrectCount)"
+        if (correctCount + incorrectCount) > 0
+        {
+            let average = Double(correctCount) / Double(correctCount + incorrectCount) * 100
+            let averageString = String(format: "%.1f", average)
+            result += " = \(averageString)"
+        }
+        return result
+    }
+    
+    func getBasicStatString() -> String
+    {
+        var correctCount = 0
+        var incorrectCount = 0
+        for card in cards
+        {
+            correctCount += card.correctCount
+            incorrectCount += card.incorrectCount
+        }
+        return "\(correctCount)/\(correctCount + incorrectCount)"
+    }
 }

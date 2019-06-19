@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		839824C122B9D4AA000B66D1 /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839824C022B9D4AA000B66D1 /* CardTableViewCell.swift */; };
+		839824C322BA7027000B66D1 /* GameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839824C222BA7027000B66D1 /* GameVC.swift */; };
 		83EB294322B9B97F0019C463 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EB294222B9B97F0019C463 /* AppDelegate.swift */; };
 		83EB294822B9B97F0019C463 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83EB294622B9B97F0019C463 /* Main.storyboard */; };
 		83EB294B22B9B97F0019C463 /* FlashCards.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 83EB294922B9B97F0019C463 /* FlashCards.xcdatamodeld */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		839824C022B9D4AA000B66D1 /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
+		839824C222BA7027000B66D1 /* GameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVC.swift; sourceTree = "<group>"; };
 		83EB293F22B9B97F0019C463 /* FlashCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83EB294222B9B97F0019C463 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83EB294722B9B97F0019C463 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				83EB295922B9B9B30019C463 /* Deck.swift */,
 				83EB296122B9BAEE0019C463 /* DecksVC.swift */,
 				83EB295D22B9BAA60019C463 /* CardsVC.swift */,
+				839824C222BA7027000B66D1 /* GameVC.swift */,
 				83EB294622B9B97F0019C463 /* Main.storyboard */,
 				839824C022B9D4AA000B66D1 /* CardTableViewCell.swift */,
 				83EB296322B9BC450019C463 /* DeckCollectionViewCell.swift */,
@@ -160,6 +163,7 @@
 				83EB295822B9B9A70019C463 /* Card.swift in Sources */,
 				83EB296222B9BAEE0019C463 /* DecksVC.swift in Sources */,
 				83EB296422B9BC450019C463 /* DeckCollectionViewCell.swift in Sources */,
+				839824C322BA7027000B66D1 /* GameVC.swift in Sources */,
 				839824C122B9D4AA000B66D1 /* CardTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
