@@ -10,4 +10,16 @@ import UIKit
 
 class DeckCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    var deck : Deck? {
+        didSet {
+            if let theDeck = deck
+            {
+                titleLabel.text = theDeck.name
+            }
+        }
+    }
+    
+    
 }
