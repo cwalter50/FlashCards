@@ -8,25 +8,25 @@
 
 import Foundation
 
-class Deck
-{
-    var name: String?
-    var cards: NSSet?
-    
-    init()
-    {
-        name = "TestDeck"
-        cards = NSSet(array: [Card]())
-    }
-    init(n: String)
-    {
-        name = n
-        cards = NSSet(array: [Card]())
-    }
-    init(n: String, c: [Card])
-    {
-        name = n
-        cards = NSSet(array: c)
-    }
-    
-}
+//class Deck
+//{
+//    var name: String?
+//    var cards: NSSet?
+//    
+//    init()
+//    {
+//        name = "TestDeck"
+//        cards = NSSet(array: [Card]())
+//    }
+//    init(n: String)
+//    {
+//        name = n
+//        cards = NSSet(array: [Card]())
+//    }
+//    init(n: String, c: [Card])
+//    {
+//        name = n
+//        cards = NSSet(array: c)
+//    }
+//    
+//}

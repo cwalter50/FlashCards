@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class GameVC: UIViewController {
 
@@ -15,6 +16,9 @@ class GameVC: UIViewController {
     @IBOutlet weak var mainLabel: UILabel!
     @IBOutlet weak var correctButton: UIButton!
     @IBOutlet weak var wrongButton: UIButton!
+    
+    // This gives us a reference to the AppDelegate and the Persistent Container for CoreData
+    let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     // MARK: Properties
     var deck : Deck?
@@ -137,6 +141,14 @@ class GameVC: UIViewController {
         {
             theCard.incorrectCount += 1
             count += 1 // don't worry about going out of bounds, that is handled with a didSet
+            
+            // save changes to Core Data
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
+            
             nextCard()
         }
     }
@@ -146,6 +158,14 @@ class GameVC: UIViewController {
         {
             theCard.correctCount += 1
             count += 1 // don't worry about going out of bounds, that is handled with a didSet
+            
+            // save changes to Core Data
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
+            
             nextCard()
         }
     }

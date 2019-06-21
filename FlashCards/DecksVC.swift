@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -16,6 +17,9 @@ class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
     var decks: [Deck] = [Deck]()
     
     var selectedDeck: Deck?
+    
+    // This gives us a reference to the AppDelegate and the Persistent Container for CoreData
+    let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad()
     {
@@ -34,14 +38,43 @@ class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
     func loadDecks()
     {
         // ToDo load decks from CoreData
+        
+        // create fetch Request
+        let fetchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "Deck")
+
+        // load the decks
+        do {
+            decks = try managedContext.fetch(fetchRequest) as! [Deck]
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
     }
     
     func saveDeck(n: String)
     {
-        
-        let newDeck = Deck(n: n)
-        self.decks.append(newDeck)
+//        let newDeck = Deck(n: n)
+//        self.decks.append(newDeck)
         // ToDo save deck to CoreData
+        
+        // Create Instance of the entity for Deck
+        let entity =
+            NSEntityDescription.entity(forEntityName: "Deck",
+                                       in: managedContext)!
+        // Create the new Deck
+        let newDeck = Deck(entity: entity, insertInto: managedContext)
+        
+        // Set the new Deck's Properties
+        newDeck.name = n
+        
+        // Actually Save the Deck
+        do {
+            try managedContext.save()
+            decks.append(newDeck)
+            deckCollectionView.reloadData()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
     }
     
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem)
@@ -119,18 +152,18 @@ class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
     // these are sample Decks, so That I can interact with the program while in development.
     func createSampleDecks()
     {
-        let cardsA = [Card(s1: "Hulk", s2: "Bruce Banner"),Card(s1: "Iron Man", s2: "Tony Stark"), Card(s1: "Captain America", s2: "Steve Rogers"), Card(s1: "Spiderman", s2: "Peter Parker"), Card(s1: "Black Widow", s2: "Natasha Romamova"), Card(s1: "Hawkeye", s2: "Clint Barton"), Card(s1: "Thor", s2: "Thor Odinson"), Card(s1: "Black Panther", s2: "King T'Challa")]
-        let deckA = Deck(n: "Superheros", c: cardsA)
-        
-        let cardsB = [Card(s1: "QuarterBack", s2: "Carson Wentz"), Card(s1: "Wide Reciever", s2: "Dasean Jackson"), Card(s1: "TightEnd", s2: "Zach Ertz"), Card(s1: "Defensive Tackle", s2: "Fletcher Cox")]
-        let deckB = Deck(n: "Eagles", c: cardsB)
-
-        let cardsC = [Card(s1: "Bob Brown", s2: "Illinois"), Card(s1: "Stacy Sniegowski", s2: "Illinois"), Card(s1: "Steve Peterson", s2: "PA")]
-        let deckC = Deck(n: "Teacher's State or Location", c: cardsC)
-        
-        decks.append(deckA)
-        decks.append(deckB)
-        decks.append(deckC)
+//        let cardsA = [Card(s1: "Hulk", s2: "Bruce Banner"),Card(s1: "Iron Man", s2: "Tony Stark"), Card(s1: "Captain America", s2: "Steve Rogers"), Card(s1: "Spiderman", s2: "Peter Parker"), Card(s1: "Black Widow", s2: "Natasha Romamova"), Card(s1: "Hawkeye", s2: "Clint Barton"), Card(s1: "Thor", s2: "Thor Odinson"), Card(s1: "Black Panther", s2: "King T'Challa")]
+//        let deckA = Deck(n: "Superheros", c: cardsA)
+//        
+//        let cardsB = [Card(s1: "QuarterBack", s2: "Carson Wentz"), Card(s1: "Wide Reciever", s2: "Dasean Jackson"), Card(s1: "TightEnd", s2: "Zach Ertz"), Card(s1: "Defensive Tackle", s2: "Fletcher Cox")]
+//        let deckB = Deck(n: "Eagles", c: cardsB)
+//
+//        let cardsC = [Card(s1: "Bob Brown", s2: "Illinois"), Card(s1: "Stacy Sniegowski", s2: "Illinois"), Card(s1: "Steve Peterson", s2: "PA")]
+//        let deckC = Deck(n: "Teacher's State or Location", c: cardsC)
+//        
+//        decks.append(deckA)
+//        decks.append(deckB)
+//        decks.append(deckC)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

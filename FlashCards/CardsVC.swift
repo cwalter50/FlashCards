@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -15,6 +16,9 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var deck: Deck?
     var cards: [Card] = [Card]()
+    
+    // This gives us a reference to the AppDelegate and the Persistent Container for CoreData
+    let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,40 +41,110 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: Saving, Loading, Removing, Updating, CoreData Stuff
     func loadCards()
     {
+//        if let theDeck = deck
+//        {
+//            cards = Array(theDeck.cards ?? []) as! [Card]
+//            cardsTableView.reloadData()
+//        }
+        
+        
+        // ToDo Load Cards From CoreData... They are currently passed in from deckVC along with the Deck.
+        
+        // create fetch Request
+        let fetchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "Card")
+        
+        // add a predicate to the fetch request, to only load the cards within the deck
         if let theDeck = deck
         {
-            cards = Array(theDeck.cards ?? []) as! [Card]
-            cardsTableView.reloadData()
+            let predicate = NSPredicate(format: "(deck = %@)", theDeck)
+            
+            fetchRequest.predicate = predicate
         }
-        // ToDo Load Cards From CoreData... They are currently passed in from deckVC along with the Deck.
+        
+        
+        // load the decks
+        do {
+            cards = try managedContext.fetch(fetchRequest) as! [Card]
+            cardsTableView.reloadData()
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
         
     }
     
     func saveNewCard(s1:String, s2:String)
     {
 
-        let newCard = Card(s1: s1, s2: s2)
-        cards.append(newCard) // update the cards
-        
-        deck?.cards = NSSet(array: cards) // update the decks cards
-        
-        self.cardsTableView.reloadData()
+//        let newCard = Card(s1: s1, s2: s2)
+//        cards.append(newCard) // update the cards
+//
+//        deck?.cards = NSSet(array: cards) // update the decks cards
+//
+//        self.cardsTableView.reloadData()
         
         // ToDo Save Card to Core Data
+        
+        // Create Instance of the entity for Deck
+        let entity =
+            NSEntityDescription.entity(forEntityName: "Card",
+                                       in: managedContext)!
+        // Create the new Card
+        let newCard = Card(entity: entity, insertInto: managedContext)
+        
+        // Set the new Cards's Properties
+        newCard.side1 = s1
+        newCard.side2 = s2
+        newCard.correctCount = 0
+        newCard.incorrectCount = 0
+        newCard.deck = deck
+        
+        // Actually Save the Card
+        
+        do {
+            try managedContext.save()
+            cards.append(newCard)
+            cardsTableView.reloadData()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
     }
     
     func deleteDeck()
     {
         // ToDo  delete entire Deck from Core Data including cards
+        if let theDeck = deck
+        {
+            managedContext.delete(theDeck)
+            
+            do {
+                try managedContext.save()
+                navigationController?.popViewController(animated: true)
+            } catch let error as NSError {
+                print("Could not delete. \(error), \(error.userInfo)")
+            }
+        }
+        
     }
     
     func deleteCardAt(index: Int)
     {
+//        // ToDo delete card from Core Data
+//        if let theDeck = deck
+//        {
+//            cards.remove(at: index)
+//            theDeck.cards = NSSet(array: cards) // update the decks cards
+//        }
+        
         // ToDo delete card from Core Data
-        if let theDeck = deck
-        {
-            cards.remove(at: index)
-            theDeck.cards = NSSet(array: cards) // update the decks cards
+
+        managedContext.delete(cards[index])
+        cards.remove(at: index)
+
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Could not delete. \(error), \(error.userInfo)")
         }
     }
     
@@ -80,7 +154,18 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         card.side2 = s2
         card.correctCount = correct
         card.incorrectCount = incorrect
+        
         // ToDo update card in CoreData
+        
+        // just add this snippet which will save the managedContext
+        do {
+            try managedContext.save()
+            cardsTableView.reloadData()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+        
+        
     }
     
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem)
