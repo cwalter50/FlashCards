@@ -74,7 +74,7 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func updateCard(card: Card, s1:String, s2:String, correct: Int, incorrect: Int)
+    func updateCard(card: Card, s1:String, s2:String, correct: Int32, incorrect: Int32)
     {
         card.side1 = s1
         card.side2 = s2

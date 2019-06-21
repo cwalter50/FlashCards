@@ -12,7 +12,6 @@ class Deck
 {
     var name: String?
     var cards: NSSet?
-//    var cards: [Card]
     
     init()
     {
@@ -30,36 +29,4 @@ class Deck
         cards = NSSet(array: c)
     }
     
-    func getStatString() -> String
-    {
-        var correctCount = 0
-        var incorrectCount = 0
-        for card in Array(cards ?? [])
-        {
-            let theCard = card as! Card
-            correctCount += theCard.correctCount
-            incorrectCount += theCard.incorrectCount
-        }
-        var result = "\(correctCount)/\(correctCount + incorrectCount)"
-        if (correctCount + incorrectCount) > 0
-        {
-            let average = Double(correctCount) / Double(correctCount + incorrectCount) * 100
-            let averageString = String(format: "%.1f", average)
-            result += " = \(averageString)"
-        }
-        return result
-    }
-    
-    func getBasicStatString() -> String
-    {
-        var correctCount = 0
-        var incorrectCount = 0
-        for card in Array(cards ?? [])
-        {
-            let theCard = card as! Card
-            correctCount += theCard.correctCount
-            incorrectCount += theCard.incorrectCount
-        }
-        return "\(correctCount)/\(correctCount + incorrectCount)"
-    }
 }

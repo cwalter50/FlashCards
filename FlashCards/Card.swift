@@ -12,8 +12,8 @@ class Card
 {
     var side1: String?
     var side2: String?
-    var correctCount: Int
-    var incorrectCount: Int
+    var correctCount: Int32
+    var incorrectCount: Int32
     var deck: Deck?
     
     init()
@@ -31,24 +31,5 @@ class Card
         correctCount = 0
         incorrectCount = 0
     }
-    
-    
-    func getStatString() -> String
-    {
-        var result = "\(correctCount)/\(correctCount + incorrectCount)"
-        if (correctCount + incorrectCount) > 0
-        {
-            let average = Double(correctCount) / Double(correctCount + incorrectCount)
-            let averageString = String(format: "%.2f", average)
-            result += " = \(averageString)"
-        }
-        return result
-    }
-    
-    func getBasicStatString() -> String
-    {
-        return "\(correctCount)/\(correctCount + incorrectCount)"
-    }
-    
     
 }

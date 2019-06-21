@@ -34,10 +34,17 @@ class GameVC: UIViewController {
         // every time currentCard gets set, update the mainLabel and statLabel
         didSet
         {
-            if let theCard = currentCard, let theDeck = deck
+            if let theCard = currentCard
             {
                 // update statLabel
-                statLabel.text = theDeck.getBasicStatString()
+                var correctCount: Int32 = 0
+                var incorrectCount: Int32 = 0
+                for card in cards
+                {
+                    correctCount += card.correctCount
+                    incorrectCount += card.incorrectCount
+                }
+                statLabel.text = "\(correctCount)/\(correctCount + incorrectCount)"
                 
                 // get a random number from 1 - 2 to decide if we display side1 or side2. The text will be set in the animation
                 let random = Int.random(in: 1...2)

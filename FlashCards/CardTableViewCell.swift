@@ -21,7 +21,8 @@ class CardTableViewCell: UITableViewCell
             {
                 label1.text = theCard.side1
                 label2.text = theCard.side2
-                detailLabel.text = theCard.getBasicStatString()
+
+                detailLabel.text = "\(theCard.correctCount)/\(theCard.correctCount + theCard.incorrectCount)"
             }
         }
     }
