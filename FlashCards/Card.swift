@@ -10,10 +10,11 @@ import Foundation
 
 class Card
 {
-    var side1: String
-    var side2: String
+    var side1: String?
+    var side2: String?
     var correctCount: Int
     var incorrectCount: Int
+    var deck: Deck?
     
     init()
     {

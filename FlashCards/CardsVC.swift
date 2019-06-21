@@ -14,6 +14,7 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var deleteButton: UIButton!
     
     var deck: Deck?
+    var cards: [Card] = [Card]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +22,6 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         loadCards()
         
         cardsTableView.tableFooterView = UIView() // this will remove the extra empty cells at bottom of tableview
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,17 +37,26 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: Saving, Loading, Removing, Updating, CoreData Stuff
     func loadCards()
     {
+        if let theDeck = deck
+        {
+            cards = Array(theDeck.cards ?? []) as! [Card]
+            cardsTableView.reloadData()
+        }
         // ToDo Load Cards From CoreData... They are currently passed in from deckVC along with the Deck.
         
     }
     
     func saveNewCard(s1:String, s2:String)
     {
-        // ToDo Save Card to Core Data
+
         let newCard = Card(s1: s1, s2: s2)
-        self.deck?.cards.append(newCard) // update the deck's cards
+        cards.append(newCard) // update the cards
+        
+        deck?.cards = NSSet(array: cards) // update the decks cards
         
         self.cardsTableView.reloadData()
+        
+        // ToDo Save Card to Core Data
     }
     
     func deleteDeck()
@@ -60,7 +69,8 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // ToDo delete card from Core Data
         if let theDeck = deck
         {
-            theDeck.cards.remove(at: index)
+            cards.remove(at: index)
+            theDeck.cards = NSSet(array: cards) // update the decks cards
         }
     }
     
@@ -105,7 +115,7 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     {
         if let theDeck = deck
         {
-            return "Add a Card to \(theDeck.name)"
+            return "Add a Card to \(theDeck.name ?? "Error")"
         }
         else
         {
@@ -136,26 +146,17 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: TableView Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let theDeck = deck
-        {
-            return theDeck.cards.count
-        }
-        else
-        {
-            return 0
-
-        }
+        
+        return cards.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! CardTableViewCell
+    
+        let theCard = cards[indexPath.row]
         
-        if let theDeck = deck
-        {
-            let theCard = theDeck.cards[indexPath.row]
-            
-            cell.card = theCard // propties and labels will be set in CardTableViewCell
-        }
+        cell.card = theCard // propties and labels will be set in CardTableViewCell
+        
         return cell
     }
     
@@ -172,50 +173,47 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let theDeck = deck
-        {
-            let theCard = theDeck.cards[indexPath.row]
-            
-            // create an alert where we can edit the values
-            let alert = UIAlertController(title: getAlertTitle(), message: "Edit Card Details", preferredStyle: .alert)
-            alert.addTextField(configurationHandler: {textfield in
-                textfield.placeholder = "Side 1"
-                textfield.adjustsFontSizeToFitWidth = true
-                textfield.autocapitalizationType = .sentences
-                textfield.text = theCard.side1
-            })
-            alert.addTextField(configurationHandler: {textfield in
-                textfield.placeholder = "Side 2"
-                textfield.adjustsFontSizeToFitWidth = true
-                textfield.autocapitalizationType = .sentences
-                textfield.text = theCard.side2
-            })
-            let addAction = UIAlertAction(title: "Save Edits", style: .default, handler: {action in
-                let side1 = alert.textFields?[0].text ?? "Error"
-                let side2 = alert.textFields?[1].text ?? "Error2"
-                self.updateCard(card: theCard, s1: side1, s2: side2, correct: theCard.correctCount, incorrect: theCard.incorrectCount)
-                
-                self.cardsTableView.reloadData()
-                
-            })
-            let resetStatsAction = UIAlertAction(title: "Reset Stats", style: .destructive, handler: {action in
-                // get possibly new textfield values...
-                let side1 = alert.textFields?[0].text ?? "Error"
-                let side2 = alert.textFields?[1].text ?? "Error2"
-                
-                self.updateCard(card: theCard, s1: side1, s2: side2, correct: 0, incorrect: 0)
-                self.cardsTableView.reloadData()
-            })
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            
-            alert.addAction(addAction)
-            alert.addAction(resetStatsAction)
-            alert.addAction(cancelAction)
-            
-            present(alert, animated: true, completion: nil)
-        }
+
+        let theCard = cards[indexPath.row]
         
+        // create an alert where we can edit the values
+        let alert = UIAlertController(title: getAlertTitle(), message: "Edit Card Details", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: {textfield in
+            textfield.placeholder = "Side 1"
+            textfield.adjustsFontSizeToFitWidth = true
+            textfield.autocapitalizationType = .sentences
+            textfield.text = theCard.side1
+        })
+        alert.addTextField(configurationHandler: {textfield in
+            textfield.placeholder = "Side 2"
+            textfield.adjustsFontSizeToFitWidth = true
+            textfield.autocapitalizationType = .sentences
+            textfield.text = theCard.side2
+        })
+        let addAction = UIAlertAction(title: "Save Edits", style: .default, handler: {action in
+            let side1 = alert.textFields?[0].text ?? "Error"
+            let side2 = alert.textFields?[1].text ?? "Error2"
+            self.updateCard(card: theCard, s1: side1, s2: side2, correct: theCard.correctCount, incorrect: theCard.incorrectCount)
+            
+            self.cardsTableView.reloadData()
+            
+        })
+        let resetStatsAction = UIAlertAction(title: "Reset Stats", style: .destructive, handler: {action in
+            // get possibly new textfield values...
+            let side1 = alert.textFields?[0].text ?? "Error"
+            let side2 = alert.textFields?[1].text ?? "Error2"
+            
+            self.updateCard(card: theCard, s1: side1, s2: side2, correct: 0, incorrect: 0)
+            self.cardsTableView.reloadData()
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(addAction)
+        alert.addAction(resetStatsAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

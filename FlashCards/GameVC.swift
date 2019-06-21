@@ -18,14 +18,16 @@ class GameVC: UIViewController {
     
     // MARK: Properties
     var deck : Deck?
+    var cards: [Card] = [Card]()
     var count = 0 // this will be used to keep track of placement in the cards...
     {
         didSet
         {
-            if count >= deck?.cards.count ?? 0 // reset count to zero when we get through all the cards
+            if count >= cards.count // reset count to zero when we get through all the cards
             {
                 count = 0
             }
+            
         }
     }
     var currentCard: Card? {
@@ -42,11 +44,11 @@ class GameVC: UIViewController {
                 var displayString = ""
                 if random == 1
                 {
-                    displayString = theCard.side1
+                    displayString = theCard.side1 ?? "Error"
                 }
                 else
                 {
-                    displayString = theCard.side2
+                    displayString = theCard.side2 ?? "Error"
                 }
                 
                 // animate the newCard coming in
@@ -62,8 +64,19 @@ class GameVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadCards()
         setUpViews()
+        
         newGame()
+    }
+    
+    func loadCards()
+    {
+        if let theDeck = deck
+        {
+            cards = Array(theDeck.cards ?? []) as! [Card]
+        }
     }
     
     func setUpViews()
@@ -77,20 +90,15 @@ class GameVC: UIViewController {
         mainLabel.layer.cornerRadius = 15
         mainLabel.layer.borderWidth = 5.0
         mainLabel.layer.borderColor = UIColor.darkGray.cgColor
-        
-    }
-    func newGame()
-    {
-        if let theDeck = deck
-        {
-            // shuffle cards
-            theDeck.cards.shuffle()
-            nextCard()
-        }
-        
-        
     }
     
+    func newGame()
+    {
+        // shuffle cards
+        cards.shuffle()
+        // deal first card
+        nextCard()
+    }
     
     // MARK: Actions
     @IBAction func mainLabelTapped(_ sender: UITapGestureRecognizer)
@@ -137,29 +145,15 @@ class GameVC: UIViewController {
     
     func nextCard()
     {
-        if let theDeck = deck
+        // display side1 of the first card
+        if count < cards.count // make sure we don't go out of bounds for array
         {
-            // display side1 of the first card
-            if count < theDeck.cards.count // make sure we don't go out of bounds for array
-            {
-                currentCard = theDeck.cards[count] // labels will be updated with a didSet in currentCard
-            }
-            else {
-                mainLabel.text = "No Cards in Deck..."
-            }
+            currentCard = cards[count] // labels will be updated with a didSet in currentCard
+        }
+        else {
+            mainLabel.text = "No Cards in Deck..."
         }
         
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

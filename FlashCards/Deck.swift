@@ -10,33 +10,35 @@ import Foundation
 
 class Deck
 {
-    var name: String
-    var cards: [Card]
+    var name: String?
+    var cards: NSSet?
+//    var cards: [Card]
     
     init()
     {
         name = "TestDeck"
-        cards = [Card]()
+        cards = NSSet(array: [Card]())
     }
     init(n: String)
     {
         name = n
-        cards = [Card]()
+        cards = NSSet(array: [Card]())
     }
     init(n: String, c: [Card])
     {
         name = n
-        cards = c
+        cards = NSSet(array: c)
     }
     
     func getStatString() -> String
     {
         var correctCount = 0
         var incorrectCount = 0
-        for card in cards
+        for card in Array(cards ?? [])
         {
-            correctCount += card.correctCount
-            incorrectCount += card.incorrectCount
+            let theCard = card as! Card
+            correctCount += theCard.correctCount
+            incorrectCount += theCard.incorrectCount
         }
         var result = "\(correctCount)/\(correctCount + incorrectCount)"
         if (correctCount + incorrectCount) > 0
@@ -52,10 +54,11 @@ class Deck
     {
         var correctCount = 0
         var incorrectCount = 0
-        for card in cards
+        for card in Array(cards ?? [])
         {
-            correctCount += card.correctCount
-            incorrectCount += card.incorrectCount
+            let theCard = card as! Card
+            correctCount += theCard.correctCount
+            incorrectCount += theCard.incorrectCount
         }
         return "\(correctCount)/\(correctCount + incorrectCount)"
     }
