@@ -110,6 +110,26 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func updateCard(card: Card, s1:String, s2:String, correct: Int32, incorrect: Int32)
+    {
+        card.side1 = s1
+        card.side2 = s2
+        card.correctCount = correct
+        card.incorrectCount = incorrect
+        
+        // ToDo update card in CoreData
+        
+        // just add this snippet which will save the managedContext
+        do {
+            try managedContext.save()
+            cardsTableView.reloadData()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+        
+        
+    }
+    
     func deleteDeck()
     {
         // ToDo  delete entire Deck from Core Data including cards
@@ -119,11 +139,12 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             do {
                 try managedContext.save()
-                navigationController?.popViewController(animated: true)
+                
             } catch let error as NSError {
                 print("Could not delete. \(error), \(error.userInfo)")
             }
         }
+        navigationController?.popViewController(animated: true)
         
     }
     
@@ -148,25 +169,7 @@ class CardsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func updateCard(card: Card, s1:String, s2:String, correct: Int32, incorrect: Int32)
-    {
-        card.side1 = s1
-        card.side2 = s2
-        card.correctCount = correct
-        card.incorrectCount = incorrect
-        
-        // ToDo update card in CoreData
-        
-        // just add this snippet which will save the managedContext
-        do {
-            try managedContext.save()
-            cardsTableView.reloadData()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-        
-        
-    }
+    
     
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem)
     {

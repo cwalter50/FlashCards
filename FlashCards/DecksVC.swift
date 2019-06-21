@@ -11,7 +11,6 @@ import CoreData
 
 class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-
     @IBOutlet weak var deckCollectionView: UICollectionView!
     
     var decks: [Deck] = [Deck]()
@@ -35,6 +34,8 @@ class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
         loadDecks()
     }
     
+
+    
     func loadDecks()
     {
         // ToDo load decks from CoreData
@@ -46,6 +47,7 @@ class DecksVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
         // load the decks
         do {
             decks = try managedContext.fetch(fetchRequest) as! [Deck]
+            deckCollectionView.reloadData()
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
