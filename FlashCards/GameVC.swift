@@ -103,6 +103,15 @@ class GameVC: UIViewController {
         mainLabel.layer.borderColor = UIColor.darkGray.cgColor
     }
     
+    func saveChangesToCoreData()
+    {
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
     func newGame()
     {
         // shuffle cards
@@ -143,11 +152,7 @@ class GameVC: UIViewController {
             count += 1 // don't worry about going out of bounds, that is handled with a didSet
             
             // save changes to Core Data
-            do {
-                try managedContext.save()
-            } catch let error as NSError {
-                print("Could not save. \(error), \(error.userInfo)")
-            }
+            saveChangesToCoreData()
             
             nextCard()
         }
@@ -160,15 +165,13 @@ class GameVC: UIViewController {
             count += 1 // don't worry about going out of bounds, that is handled with a didSet
             
             // save changes to Core Data
-            do {
-                try managedContext.save()
-            } catch let error as NSError {
-                print("Could not save. \(error), \(error.userInfo)")
-            }
+            saveChangesToCoreData()
             
             nextCard()
         }
     }
+    
+
     
     func nextCard()
     {
