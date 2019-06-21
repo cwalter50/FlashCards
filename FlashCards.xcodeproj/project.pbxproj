@@ -309,7 +309,7 @@
 		83EB295522B9B9820019C463 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 84LWTY6T5F;
 				INFOPLIST_FILE = FlashCards/Info.plist;
@@ -328,7 +328,7 @@
 		83EB295622B9B9820019C463 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 84LWTY6T5F;
 				INFOPLIST_FILE = FlashCards/Info.plist;
